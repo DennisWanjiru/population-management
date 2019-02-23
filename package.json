@@ -1,0 +1,21 @@
+{
+  "name": "population-management",
+  "version": "1.0.0",
+  "description": "Population Management System that contains a list of locations and the total number of residents in each location broken down by gender.",
+  "main": "src/index.js",
+  "author": "samwel charles",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon  -r dotenv/config ./src/index.js "
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.14"
+  },
+  "devDependencies": {
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.10"
+  }
+}
