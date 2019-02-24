@@ -16,3 +16,5 @@ app.listen(PORT,()=>{
     console.log('the app is running at ', PORT)
 })
 
+
+module.exports = app

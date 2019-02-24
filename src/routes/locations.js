@@ -2,14 +2,25 @@ const express = require('express')
 const locationRouter = express.Router()
 const Location = require("./../db/models/Location")
 
-function addTotal(req,res,next){
-    console.log("the response ",res.body)
-    const {location} = res.body;
-    Object.assign(location,{total: location.females + location.males })
+async function validateLocation(req,res,next){
+    const body = req.body
    
-    console.log("the stuff ", location)
+    if(!body.hasOwnProperty('name') || body.name === ""){
+        return res.status(400).json({message:"Location Name field is required"})
+    }
+    if(!body.hasOwnProperty('females') || body.females === ""){
+        return res.status(400).json({message:"Number of Female residents is required"})
+    }
+    if(!body.hasOwnProperty('males') || body.males === ""){
+        return res.status(400).json({message:"Number of Male residents is required"})
+    }
+    const existing = await Location.findOne({name:req.body.name}).exec()
+    if (!!existing){
+        return res.status(400).json({message:`Location with name ${req.body.name} already exists`})
+    }
     next()
 }
+
 locationRouter.route('/').get((req,res)=>{
     Location.find({}, (error,locations)=>{
         for (const location of locations) {
@@ -17,13 +28,14 @@ locationRouter.route('/').get((req,res)=>{
         }
         res.status(200).json(locations)
     })
-}).post((req,res)=>{
+}).post(validateLocation,async (req,res)=>{
+    
     let location = new Location(req.body)
     location.save();
     res.status(201).json(location)
 });
 
-locationRouter.route("/:id/add").post((req,res)=>{
+locationRouter.route("/:id/add").post(validateLocation, (req,res)=>{
     const {id} = req.params;
     Location.findById(id, (error,location)=>{
         if(error) return res.status(500).json(error)
@@ -57,7 +69,7 @@ locationRouter.route('/:id').get( async (req,res)=>{
        
         
     })
-},addTotal).patch((req,res)=>{
+}).patch((req,res)=>{
     const {id} = req.params
     Location.findById(id,(error,location)=>{
         if(!!location){
@@ -72,7 +84,6 @@ locationRouter.route('/:id').get( async (req,res)=>{
         }else{
             res.status(404).json({message:`Location with ID ${id} is not found`})
         }
-        
     })
 }).delete((req,res)=>{
     const {id} = req.params
@@ -81,7 +92,7 @@ locationRouter.route('/:id').get( async (req,res)=>{
         if(!!location){
             location.remove(error=>{
                 if (error) return res.status(400).json(error)
-                res.status(204).json({message:"Location removed successfully"})
+                res.status(200).json({message:"Location removed successfully"})
             })
            
         }else{

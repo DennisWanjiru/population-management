@@ -6,7 +6,8 @@
   "author": "samwel charles",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon  -r dotenv/config ./src/index.js "
+    "start": "nodemon  -r dotenv/config ./src/index.js ",
+    "test": "jest  --coverage  --forceExit --setupFiles dotenv/config  "
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -15,7 +16,10 @@
     "mongoose": "^5.4.14"
   },
   "devDependencies": {
+    "jest": "^24.1.0",
+    "mocha": "^6.0.1",
     "morgan": "^1.9.1",
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "supertest": "^3.4.2"
   }
 }
