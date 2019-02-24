@@ -89,6 +89,7 @@ locationRouter.route('/:id').get( async (req,res)=>{
     const {id} = req.params
     Location.findById(id,(error,location)=>{
         if(error) return res.status(400).json(error)
+        console.log("invoked", location, id)
         if(!!location){
             location.remove(error=>{
                 if (error) return res.status(400).json(error)
