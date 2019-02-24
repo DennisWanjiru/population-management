@@ -1,0 +1,42 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/workspace
+    docker: 
+      - image: node:11.10.0
+        environment:
+          DB_USERNAME: root
+          DB_DIALECT: "postgres"
+          TEST_DB_NAME: "circle-test_test"
+          PORT: 9000
+
+      # - image: circleci/postgres:9.6.2-alpine
+      #   environment:
+      #     POSTGRES_USER: root
+      #     POSTGRES_PASSWORD: 
+      #     POSTGRES_DB: circle-test_test
+
+    steps:
+    - checkout
+    - run:
+        name: Download Code Climate Test Reporter
+        command: |
+          mkdir -p tmp/
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
+          chmod +x ./tmp/cc-test-reporter
+    - run:
+        name: Install dependencies
+        command: yarn install
+    - run:
+        name: Run  tests
+        command: yarn run test
+    - run:
+        name: Push Test coverage to Codeclimate
+        command: |
+          ./tmp/cc-test-reporter format-coverage -t lcov -o tmp/codeclimate.json coverage/lcov.info
+          ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.json
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+    - build
