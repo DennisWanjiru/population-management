@@ -1,7 +1,7 @@
 # population-management
 
 [![CircleCI](https://circleci.com/gh/younggeeks/population-management.svg?style=svg)](https://circleci.com/gh/younggeeks/population-management) 
-
+[![Test Coverage](https://api.codeclimate.com/v1/badges/d51520cdb3d4b2ecce5d/test_coverage)](https://codeclimate.com/github/younggeeks/population-management/test_coverage)
 
 YOU CAN TRY THE LIVE VERSION https://mighty-river-40446.herokuapp.com/api-docs
 
