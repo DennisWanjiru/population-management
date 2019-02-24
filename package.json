@@ -6,8 +6,8 @@
   "author": "samwel charles",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon  -r dotenv/config ./src/index.js ",
-    "start:dev": "node  -r dotenv/config ./src/index.js ",
+    "start:dev": "nodemon  -r dotenv/config ./src/index.js ",
+    "start": "node  -r dotenv/config ./src/index.js ",
     "test": "jest  --coverage  --forceExit --setupFiles dotenv/config  "
   },
   "dependencies": {
