@@ -1,0 +1,239 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "POPULATION MANAGEMENT",
+    "version": "1.0.0",
+    "title": "POPULATION MANAGEMENT API",
+    "contact": {
+      "email": "younggeeks101@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "mighty-river-40446.herokuapp.com",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "LOCATIONS",
+      "description": "LOCATION MANAGEMENT"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/locations": {
+      "post": {
+        "tags": [
+          "LOCATIONS"
+        ],
+        "summary": "Register New Location",
+        "description": "Adds new location",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "New Location Object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Location"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Location saved"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "LOCATIONS"
+        ],
+        "summary": "Get All Locations",
+        "description": "Get all Locations ",
+        "operationId": "getAll",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Location"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/locations/{id}": {
+      "get": {
+        "tags": [
+          "LOCATIONS"
+        ],
+        "summary": "Get single Location",
+        "description": "",
+        "operationId": "getOne",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of the location to retrieve ",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Location"
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "Location not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "LOCATIONS"
+        ],
+        "summary": "Delete Location",
+        "description": "Delete Single Location",
+        "operationId": "deleteLocation",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the location to be deleted",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operation successful"
+          },
+          "404": {
+            "description": "Invalid id supplied"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "LOCATIONS"
+        ],
+        "summary": "Update location details",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of the location to retrieve ",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/locations/{id}/add": {
+      "post": {
+        "tags": [
+          "LOCATIONS"
+        ],
+        "summary": "Inserting Child location",
+        "description": "",
+        "operationId": "insertChild",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of the parent location to retrieve ",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "New Location Object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Location"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Location"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "SMS not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Location": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "females": {
+          "type": "integer"
+        },
+        "males": {
+          "type": "integer"
+        },
+        "parent": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

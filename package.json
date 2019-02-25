@@ -15,7 +15,8 @@
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "mongoose": "^5.4.14",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "swagger-ui-express": "^4.0.2"
   },
   "devDependencies": {
     "jest": "^24.1.0",
